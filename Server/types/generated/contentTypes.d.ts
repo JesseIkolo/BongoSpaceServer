@@ -788,6 +788,687 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiBudgetBudget extends Schema.CollectionType {
+  collectionName: 'budgets';
+  info: {
+    singularName: 'budget';
+    pluralName: 'budgets';
+    displayName: 'Budget';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Peroide: Attribute.String;
+    Valeur: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::budget.budget',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::budget.budget',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCategorieCategorie extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'categorie';
+    pluralName: 'categories';
+    displayName: 'categorie';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    produits: Attribute.Relation<
+      'api::categorie.categorie',
+      'oneToMany',
+      'api::produit.produit'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::categorie.categorie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::categorie.categorie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiClientClient extends Schema.CollectionType {
+  collectionName: 'clients';
+  info: {
+    singularName: 'client';
+    pluralName: 'clients';
+    displayName: 'Client';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    User: Attribute.Component<'users.users', true>;
+    Telephone: Attribute.String;
+    commandes: Attribute.Relation<
+      'api::client.client',
+      'oneToMany',
+      'api::commande.commande'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCommandeCommande extends Schema.CollectionType {
+  collectionName: 'commandes';
+  info: {
+    singularName: 'commande';
+    pluralName: 'commandes';
+    displayName: 'Commande';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Numero: Attribute.Integer;
+    Date: Attribute.Date;
+    Montant: Attribute.Float;
+    Statut: Attribute.String;
+    paiement: Attribute.Relation<
+      'api::commande.commande',
+      'oneToOne',
+      'api::paiement.paiement'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::commande.commande',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::commande.commande',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCompteCompte extends Schema.CollectionType {
+  collectionName: 'comptes';
+  info: {
+    singularName: 'compte';
+    pluralName: 'comptes';
+    displayName: 'Compte';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Numero: Attribute.Integer;
+    Solde: Attribute.Float;
+    transactions: Attribute.Relation<
+      'api::compte.compte',
+      'oneToMany',
+      'api::transaction.transaction'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::compte.compte',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::compte.compte',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDepenseDepense extends Schema.CollectionType {
+  collectionName: 'depenses';
+  info: {
+    singularName: 'depense';
+    pluralName: 'depenses';
+    displayName: 'Depense';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Date: Attribute.Date;
+    Description: Attribute.Blocks;
+    Montant: Attribute.Float & Attribute.DefaultTo<0>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::depense.depense',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::depense.depense',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEmployerEmployer extends Schema.CollectionType {
+  collectionName: 'employers';
+  info: {
+    singularName: 'employer';
+    pluralName: 'employers';
+    displayName: 'Employer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    User: Attribute.Component<'users.users', true>;
+    Role: Attribute.String;
+    services: Attribute.Relation<
+      'api::employer.employer',
+      'oneToMany',
+      'api::service.service'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::employer.employer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::employer.employer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEntrepriseEntreprise extends Schema.CollectionType {
+  collectionName: 'entreprises';
+  info: {
+    singularName: 'entreprise';
+    pluralName: 'entreprises';
+    displayName: 'Entreprise';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Domaine: Attribute.String;
+    Localisation: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::entreprise.entreprise',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::entreprise.entreprise',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFicheTechniqueFicheTechnique extends Schema.CollectionType {
+  collectionName: 'fiche_techniques';
+  info: {
+    singularName: 'fiche-technique';
+    pluralName: 'fiche-techniques';
+    displayName: 'Fiche_technique';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    poids: Attribute.Float;
+    Dimensions: Attribute.String;
+    Capacite: Attribute.String;
+    Autonomie: Attribute.String;
+    Vitesse: Attribute.String;
+    Resolution: Attribute.String;
+    Temps_preparation: Attribute.String;
+    Temps_cuisson: Attribute.String;
+    Couleur: Attribute.String;
+    taille: Attribute.Decimal;
+    Materiel: Attribute.String;
+    Garantie: Attribute.String;
+    produits: Attribute.Relation<
+      'api::fiche-technique.fiche-technique',
+      'oneToMany',
+      'api::produit.produit'
+    >;
+    ingrediants: Attribute.Relation<
+      'api::fiche-technique.fiche-technique',
+      'oneToMany',
+      'api::ingrediant.ingrediant'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fiche-technique.fiche-technique',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fiche-technique.fiche-technique',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFournisseurFournisseur extends Schema.CollectionType {
+  collectionName: 'fournisseurs';
+  info: {
+    singularName: 'fournisseur';
+    pluralName: 'fournisseurs';
+    displayName: 'Fournisseur';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    User: Attribute.Component<'users.users', true>;
+    phoneNumber: Attribute.String & Attribute.Required & Attribute.Unique;
+    Photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fournisseur.fournisseur',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fournisseur.fournisseur',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGerantGerant extends Schema.CollectionType {
+  collectionName: 'gerants';
+  info: {
+    singularName: 'gerant';
+    pluralName: 'gerants';
+    displayName: 'Gerant';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Attribute.Component<'users.users', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::gerant.gerant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::gerant.gerant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiIngrediantIngrediant extends Schema.CollectionType {
+  collectionName: 'ingrediants';
+  info: {
+    singularName: 'ingrediant';
+    pluralName: 'ingrediants';
+    displayName: 'Ingrediant';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Quantite: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ingrediant.ingrediant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ingrediant.ingrediant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMarqueMarque extends Schema.CollectionType {
+  collectionName: 'marques';
+  info: {
+    singularName: 'marque';
+    pluralName: 'marques';
+    displayName: 'Marque';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String & Attribute.Required & Attribute.Unique;
+    Logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    produits: Attribute.Relation<
+      'api::marque.marque',
+      'oneToMany',
+      'api::produit.produit'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::marque.marque',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::marque.marque',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaiementPaiement extends Schema.CollectionType {
+  collectionName: 'paiements';
+  info: {
+    singularName: 'paiement';
+    pluralName: 'paiements';
+    displayName: 'Paiement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Date: Attribute.Date;
+    Montant: Attribute.Float;
+    Mode: Attribute.String;
+    commande: Attribute.Relation<
+      'api::paiement.paiement',
+      'oneToOne',
+      'api::commande.commande'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::paiement.paiement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::paiement.paiement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProduitProduit extends Schema.CollectionType {
+  collectionName: 'produits';
+  info: {
+    singularName: 'produit';
+    pluralName: 'produits';
+    displayName: 'Produit';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Prix: Attribute.Float;
+    Disponibilite: Attribute.String;
+    Images: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    Qte_stock: Attribute.Integer;
+    Qte_citique: Attribute.Integer;
+    Commentaire: Attribute.Blocks;
+    Description_courte: Attribute.String;
+    Description_longue: Attribute.Text;
+    variantes: Attribute.Relation<
+      'api::produit.produit',
+      'oneToMany',
+      'api::variante.variante'
+    >;
+    category: Attribute.Relation<
+      'api::produit.produit',
+      'manyToOne',
+      'api::categorie.categorie'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::produit.produit',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::produit.produit',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRevenueRevenue extends Schema.CollectionType {
+  collectionName: 'revenues';
+  info: {
+    singularName: 'revenue';
+    pluralName: 'revenues';
+    displayName: 'Revenue';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Date: Attribute.Date;
+    Numero: Attribute.Integer;
+    Description: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::revenue.revenue',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::revenue.revenue',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: 'Service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Cout: Attribute.Float;
+    Description: Attribute.Blocks;
+    Disonnibliliter: Attribute.String;
+    Evaluation: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTransactionTransaction extends Schema.CollectionType {
+  collectionName: 'transactions';
+  info: {
+    singularName: 'transaction';
+    pluralName: 'transactions';
+    displayName: 'Transaction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Date: Attribute.Date;
+    Type: Attribute.String;
+    Montant: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVarianteVariante extends Schema.CollectionType {
+  collectionName: 'variantes';
+  info: {
+    singularName: 'variante';
+    pluralName: 'variantes';
+    displayName: 'Variante';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nom: Attribute.String;
+    Prix: Attribute.Float;
+    Images: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    Quantite: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::variante.variante',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::variante.variante',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +1487,25 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::budget.budget': ApiBudgetBudget;
+      'api::categorie.categorie': ApiCategorieCategorie;
+      'api::client.client': ApiClientClient;
+      'api::commande.commande': ApiCommandeCommande;
+      'api::compte.compte': ApiCompteCompte;
+      'api::depense.depense': ApiDepenseDepense;
+      'api::employer.employer': ApiEmployerEmployer;
+      'api::entreprise.entreprise': ApiEntrepriseEntreprise;
+      'api::fiche-technique.fiche-technique': ApiFicheTechniqueFicheTechnique;
+      'api::fournisseur.fournisseur': ApiFournisseurFournisseur;
+      'api::gerant.gerant': ApiGerantGerant;
+      'api::ingrediant.ingrediant': ApiIngrediantIngrediant;
+      'api::marque.marque': ApiMarqueMarque;
+      'api::paiement.paiement': ApiPaiementPaiement;
+      'api::produit.produit': ApiProduitProduit;
+      'api::revenue.revenue': ApiRevenueRevenue;
+      'api::service.service': ApiServiceService;
+      'api::transaction.transaction': ApiTransactionTransaction;
+      'api::variante.variante': ApiVarianteVariante;
     }
   }
 }
